@@ -4,9 +4,9 @@ import "@ocplabs/contracts/interfaces/IOCPRouter.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 /**
-    @title ExampleOUSD
-    @author Muller
-    @dev ExampleOUSD is used to show how to use the IOCPRouter.
+    * @title ExampleOUSD
+    * @author Muller
+    * @dev ExampleOUSD is used to show how to use the IOCPRouter.
 
     * ExampleOUSD will set the `router`, `remoteChainId`, and `swapToken` variables in the constructor.
     * And these variables will be immutable.
