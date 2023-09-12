@@ -33,6 +33,18 @@ contract ExampleStaking {
     IERC20 public immutable depositToken;
     uint16 public immutable remoteChainId;
 
+    /**
+        * @dev constructor is used to set the `router`, `remoteChainId`, and `depositToken` variables.
+
+        * The `router` variable is the address of the OCP Router.
+        * The `remoteChainId` variable is the chainId of the remote chain.
+        * The `depositToken` variable is the address of the token to deposit.
+        * The `router`, `remoteChainId`, and `depositToken` variables are immutable.
+
+        * @param _router The address of the OCP Router.
+        * @param _remoteChainId The chainId of the remote chain.
+        * @param _depositToken The address of the token to deposit.
+    */
     constructor (
         address _router,
         uint16 _remoteChainId,
@@ -43,6 +55,14 @@ contract ExampleStaking {
         depositToken = IERC20(_depositToken);
     }
 
+    /**
+        * @dev stakingDepositCall is used to deposit tokens into the pool.
+        * The `stakingDepositCall` function will call the `omniMint` function on the router.
+        * The `omniMint` function will mint OmniTokens for the `depositToken` to the address specified in the `omniMint` function.
+        * The `omniMint` function will mint OmniTokens for the `depositToken` using the `convertRate` function.
+
+        * @param _amountIn The amount of tokens to deposit.
+    */
     function stakingDepositCall(uint256 _amountIn) external {
         router.omniMint(
             remoteChainId,
