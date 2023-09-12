@@ -26,15 +26,16 @@ contract ExampleOUSD {
     uint16 public immutable remoteChainId;
 
     /**
-        @dev constructor is used to set the `router`, `remoteChainId`, and `swapToken` variables.
+        * @dev constructor is used to set the `router`, `remoteChainId`, and `swapToken` variables.
+
         * The `router` variable is the address of the OCP Router.
         * The `remoteChainId` variable is the chainId of the remote chain.
         * The `swapToken` variable is the address of the token to swap.
         * The `router`, `remoteChainId`, and `swapToken` variables are immutable.
 
-        @param _router The address of the OCP Router.
-        @param _remoteChainId The chainId of the remote chain.
-        @param _swapToken The address of the token to swap.
+        * @param _router The address of the OCP Router.
+        * @param _remoteChainId The chainId of the remote chain.
+        * @param _swapToken The address of the token to swap.
     */
     constructor (
         address _router,
@@ -47,18 +48,31 @@ contract ExampleOUSD {
     }
 
     /**
-        @dev swapTokenToOUSD is used to swap tokens for OUSD.
+        * @dev swapTokenToOUSD is used to swap tokens for OUSD.
 
-        @param from The address to swap tokens from.
-        @param to The address to mint OUSD to.
-        @param amountIn The amount of tokens to swap.
-        @param payload The payload to send to the remote chain.
+        * The `swapTokenToOUSD` function will call the `omniMint` function on the router.
+
+        * @param from The address to swap tokens from.
+        * @param to The address to mint OUSD to.
+        * @param amountIn The amount of tokens to swap.
+        * @param payload The payload to send to the remote chain.
     */
     event SwapTokenToOUSD(address indexed from, address indexed to, uint256 amountIn, bytes payload);
+
+    /**
+        * @dev swapOUSDToToken is used to swap OUSD for tokens.
+
+        * The `swapOUSDToToken` function will call the `omniRedeem` function on the router.
+
+        * @param from The address to swap OUSD from.
+        * @param to The address to redeem the `swapToken` to.
+        * @param amountIn The amount of OUSD to swap.
+        * @param payload The payload to send to the remote chain.
+    */
     event SwapOUSDToToken(address indexed from, address indexed to, uint256 amountIn, bytes payload);
 
     /**
-        @dev swapTokenToOUSD is used to swap tokens for OUSD.
+        * @dev swapTokenToOUSD is used to swap tokens for OUSD.
 
         * The `swapTokenToOUSD` function will call the `omniMint` function on the router.
         * The `omniMint` function will mint OUSD for the `swapToken` to the address specified in the `omniMint` function.
@@ -80,7 +94,7 @@ contract ExampleOUSD {
     }
 
     /**
-        @dev swapOUSDToToken is used to swap OUSD for tokens.
+        * @dev swapOUSDToToken is used to swap OUSD for tokens.
 
         * The `swapOUSDToToken` function will call the `omniRedeem` function on the router.
         * The `omniRedeem` function will redeem OUSD for the `swapToken` to the address specified in the `omniRedeem` function.

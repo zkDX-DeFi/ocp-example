@@ -57,6 +57,7 @@ contract ExampleStaking {
 
     /**
         * @dev stakingDepositCall is used to deposit tokens into the pool.
+
         * The `stakingDepositCall` function will call the `omniMint` function on the router.
         * The `omniMint` function will mint OmniTokens for the `depositToken` to the address specified in the `omniMint` function.
         * The `omniMint` function will mint OmniTokens for the `depositToken` using the `convertRate` function.
@@ -73,10 +74,26 @@ contract ExampleStaking {
         );
     }
 
+    /**
+        * @dev withdraw is used to withdraw tokens from the pool.
+
+        * The `withdraw` function will call the `omniRedeem` function on the router.
+        * The `omniRedeem` function will redeem OmniTokens for the `depositToken` to the address specified in the `omniRedeem` function.
+
+        * @param _amountIn The amount of tokens to withdraw.
+    */
     function withdraw(uint256 _amountIn) external {
         // todo: add code
     }
 
+    /**
+        * @dev claimRewards is used to claim rewards from the pool.
+
+        * The `claimRewards` function will call the `omniRedeem` function on the router.
+        * The `omniRedeem` function will redeem OmniTokens for the `depositToken` to the address specified in the `omniRedeem` function.
+        * The `claimRewards` function will call the `omniMint` function on the router for the rewards.
+
+    */
     function claimRewards() external {
         // todo: add code
     }
