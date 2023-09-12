@@ -13,6 +13,7 @@ export async function deployFixture() {
 
     const contracts = {
         exampleStaking : await ethers.getContract("ExampleStaking"),
+        exampleOUSD: await ethers.getContract("ExampleOUSD"),
     }
 
     return {...users, ...contracts};
