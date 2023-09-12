@@ -17,6 +17,9 @@
     "@nomicfoundation/hardhat-chai-matchers": "^1.0.6",
     "@nomiclabs/hardhat-ethers": "^2.2.2",
     "@openzeppelin/contracts": "^4.8.1",
+
+    "@ocplabs/contracts": "latest",
+
     "@typechain/ethers-v5": "^10.1.0",
     "@typechain/hardhat": "^6.1.2",
     "@types/chai": "^4.3.4",

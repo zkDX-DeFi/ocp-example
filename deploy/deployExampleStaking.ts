@@ -1,4 +1,5 @@
 import {DeployFunction} from 'hardhat-deploy/types';
+import {AddressZero} from "../helpers/constants";
 
 
 const func: DeployFunction = async function ({deployments, getNamedAccounts, network, getChainId}) {
@@ -6,10 +7,10 @@ const func: DeployFunction = async function ({deployments, getNamedAccounts, net
     const {deploy} = deployments;
     const {owner} = await getNamedAccounts();
 
-    console.log(`>> deploying OCPFactory...`);
-    await deploy('OCPFactory', {
+    console.log(`>> deploying ExampleStaking...`);
+    await deploy('ExampleStaking', {
         from: owner,
-        args: [],
+        args: [AddressZero,0,AddressZero],
         log: true
     });
 

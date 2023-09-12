@@ -936,6 +936,11 @@
   resolved "https://registry.npmjs.org/@nomiclabs/hardhat-ethers/-/hardhat-ethers-2.2.3.tgz#b41053e360c31a32c2640c9a45ee981a7e603fe0"
   integrity sha512-YhzPdzb612X591FOe68q+qXVXGG2ANZRvDo0RRUtimev85rCrAlv/TLMEZw5c+kq9AbzocLTVX/h2jVIFPL9Xg==
 
+"@ocplabs/contracts@latest":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@ocplabs/contracts/-/contracts-1.0.5.tgz#92aa4dc8aac3c1d44c2a7ecd2f2d53d0d29dd49d"
+  integrity sha512-56rj9dhl/IYjMf7xxWpgNQIH/YLJOYswCbaUeHrC3IWhhuYmTkQwUxZt/VvOdMWgt5XhREQwW9swHjhNxl9nWg==
+
 "@openzeppelin-3/contracts@npm:@openzeppelin/contracts@^3.4.2-solc-0.7":
   version "3.4.2"
   resolved "https://registry.npmjs.org/@openzeppelin/contracts/-/contracts-3.4.2.tgz#d81f786fda2871d1eb8a8c5a73e455753ba53527"

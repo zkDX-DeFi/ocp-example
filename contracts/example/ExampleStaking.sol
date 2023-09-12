@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-import "contracts/interfaces/IOCPRouter.sol";
+import "@ocplabs/contracts/interfaces/IOCPRouter.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 /**

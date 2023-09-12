@@ -12,9 +12,7 @@ export async function deployFixture() {
     }
 
     const contracts = {
-        factory: await ethers.getContract("OCPFactory"),
-        factory2: await ethers.getContract("OCPFactory2"),
-        router: await ethers.getContract("OCPRouter")
+        exampleStaking : await ethers.getContract("ExampleStaking"),
     }
 
     return {...users, ...contracts};
