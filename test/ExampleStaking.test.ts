@@ -10,10 +10,11 @@ describe("OCPFactory", async () => {
         user1: any,
         usdc: any,
         exampleStaking: any,
-        exampleOUSD: any;
+        exampleOUSD: any,
+        exampleDerivatives: any;
 
     beforeEach(async () => {
-        ({owner, user1, exampleStaking, exampleOUSD} = await deployFixture());
+        ({owner, user1, exampleStaking, exampleOUSD, exampleDerivatives} = await deployFixture());
         usdc = await deployNew("Token", ["USDC", 18, 0, 0, 0]);
     });
 
@@ -27,5 +28,11 @@ describe("OCPFactory", async () => {
         const e = exampleOUSD;
         expect(e.address).not.eq(AddressZero);
         console.log(`oUSD: ${e.address}`);
+    });
+
+    it("ExampleDerivatives", async () => {
+        const e = exampleDerivatives;
+        expect(e.address).not.eq(AddressZero);
+        console.log(`oDerivatives: ${e.address}`);
     });
 });

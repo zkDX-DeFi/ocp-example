@@ -7,8 +7,8 @@ const func: DeployFunction = async function ({deployments, getNamedAccounts, net
     const {deploy} = deployments;
     const {owner} = await getNamedAccounts();
 
-    console.log(`>> deploying ExampleOUSD...`);
-    await deploy('ExampleOUSD', {
+    console.log(`>> deploying ExampleDerivatives...`);
+    await deploy('ExampleDerivatives', {
         from: owner,
         args: [AddressZero,0,AddressZero],
         log: true
