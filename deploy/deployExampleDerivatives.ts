@@ -10,7 +10,7 @@ const func: DeployFunction = async function ({deployments, getNamedAccounts, net
     console.log(`>> deploying ExampleDerivatives...`);
     await deploy('ExampleDerivatives', {
         from: owner,
-        args: [AddressZero,0,AddressZero],
+        args: [AddressZero,0,AddressZero,AddressZero],
         log: true
     });
 
