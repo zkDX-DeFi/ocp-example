@@ -3,7 +3,7 @@ pragma solidity ^0.8.13;
 import "@ocplabs/contracts/interfaces/IOCPRouter.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-import "./ExampleDerivatives/Vault.sol";
+import "./References/Vault.sol";
 
 contract ExampleDerivatives is ReentrancyGuard{
     IOCPRouter public immutable router;
