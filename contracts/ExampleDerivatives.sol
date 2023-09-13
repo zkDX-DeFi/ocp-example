@@ -13,14 +13,14 @@ import "./References/Vault.sol";
     * The `pluginIncreasePosition` function will call the `omniMint` function from the router.
     * The `pluginIncreasePosition` function will call the `increasePosition` function from the vault.
 
-    * The `pluginIncreasePosition` function will deposit the tokens into the vault and mint the omniDepositTokens.
-    * And the `pluginIncreasePosition` function will mint the omniDepositTokens to the account.
+    * The `pluginIncreasePosition` function will deposit the tokens into the vault and mint the `omniDepositTokens`.
+    * And the `pluginIncreasePosition` function will mint the `omniDepositTokens` to the account.
     * And increase the position size by the amount of tokens deposited.
 
     * The `pluginDecreasePosition` function will call the `omniRedeem` function from the router.
     * The `pluginDecreasePosition` function will call the `decreasePosition` function from the vault.
 
-    * The `pluginDecreasePosition` function will burn the omniDepositTokens from the account and redeem the omniDepositTokens from the vault.
+    * The `pluginDecreasePosition` function will burn the `omniDepositTokens` from the account and redeem the `omniDepositTokens` from the vault.
     * And the `pluginDecreasePosition` function will withdraw the tokens from the vault.
     * And decrease the position size by the amount of tokens withdrawn.
 
@@ -73,8 +73,8 @@ contract ExampleDerivatives is ReentrancyGuard{
         * @dev pluginIncreasePosition is used to increase positions.
 
         * The `pluginIncreasePosition` function will call the `omniMint` function from the router.
-        * Deposit the token into the vault and mint the omniDepositTokens.
-        * And the `pluginIncreasePosition` function will mint the omniDepositTokens to the account.
+        * Deposit the token into the vault and mint the `omniDepositTokens`.
+        * And the `pluginIncreasePosition` function will mint the `omniDepositTokens` to the account.
         * And increase the position size by the amount of tokens deposited.
 
         * The `pluginIncreasePosition` function will call the `increasePosition` function from the vault.
@@ -109,7 +109,7 @@ contract ExampleDerivatives is ReentrancyGuard{
         * @dev pluginDecreasePosition is used to decrease positions.
 
         * `pluginDecreasePosition` function will call the `omniRedeem` function from the router.
-        * Burn the omniDepositTokens from the account and redeem the omniDepositTokens from the vault.
+        * Burn the `omniDepositTokens` from the account and redeem the `omniDepositTokens` from the vault.
         * And the `pluginDecreasePosition` function will withdraw the tokens from the vault.
         * And decrease the position size by the amount of tokens withdrawn.
 
