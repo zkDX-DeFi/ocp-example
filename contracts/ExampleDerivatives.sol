@@ -40,4 +40,24 @@ contract ExampleDerivatives is ReentrancyGuard{
         );
         vault.increasePosition(_account, _collateralToken, _indexToken, _sizeDelta, _isLong);
     }
+
+    function pluginDecreasePosition(
+        address _account,
+        address _collateralToken,
+        address _indexToken,
+        uint256 _collateralDelta,
+        uint256 _sizeDelta,
+        uint256 _amountIn,
+        bool _isLong,
+        address _receiver
+    ) external {
+        router.omniRedeem(
+            remoteChainId,
+            address(depositToken),
+            _amountIn,
+            address(this),
+            abi.encodeWithSelector(this.pluginDecreasePosition.selector, _amountIn)
+        );
+        vault.decreasePosition(_account, _collateralToken, _indexToken, _collateralDelta, _sizeDelta, _isLong, _receiver);
+    }
 }

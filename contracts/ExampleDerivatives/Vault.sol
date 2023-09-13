@@ -24,6 +24,16 @@ contract Vault is ReentrancyGuard{
         uint256 lastIncreasedTime;
     }
 
+    function getPositionKey(
+        address _account,
+        address _collateralToken,
+        address _indexToken,
+        bool _isLong
+    ) public view returns (bytes32) {
+        bytes32 key = keccak256(abi.encodePacked(_account, _collateralToken, _indexToken, _isLong));
+        return key;
+    }
+
     function increasePosition(
         address _account,
         address _collateralToken,
@@ -35,13 +45,19 @@ contract Vault is ReentrancyGuard{
         Position storage position = positions[key];
     }
 
-    function getPositionKey(
+    function decreasePosition(
         address _account,
         address _collateralToken,
         address _indexToken,
-        bool _isLong
-    ) public view returns (bytes32) {
-        bytes32 key = keccak256(abi.encodePacked(_account, _collateralToken, _indexToken, _isLong));
-        return key;
+        uint256 _collateralDelta,
+        uint256 _sizeDelta,
+        bool _isLong,
+        address _receiver
+    ) external nonReentrant returns (uint256){
+        bytes32 key = getPositionKey(_account, _collateralToken, _indexToken, _isLong);
+        Position storage position = positions[key];
+
+        return 0;
     }
+
 }
