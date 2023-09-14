@@ -8,7 +8,7 @@ contract ExampleDEX {
     IOCPRouter public immutable router;
     uint16 public immutable remoteChainId;
 
-    constructor (address _uniswapRouter, address _router, uint16 _remoteChainId) {
+    constructor (address _uniswapRouter, uint16 _remoteChainId, address _router) {
         uniswapRouter = IUniswapV2Router02(_uniswapRouter);
         router = IOCPRouter(_router);
         remoteChainId   = _remoteChainId;
