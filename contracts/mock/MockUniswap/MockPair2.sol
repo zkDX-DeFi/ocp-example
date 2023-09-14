@@ -15,6 +15,7 @@ contract MockPair2 is ERC20{
     address public token0;
     address public token1;
     uint public constant MINIMUM_LIQUIDITY = 10**3;
+    bool public initialized = false;
 
     uint private unlocked = 1;
     uint112 private reserve0;
@@ -37,4 +38,25 @@ contract MockPair2 is ERC20{
     event Burn(address indexed sender, uint amount0, uint amount1, address indexed to);
     event Swap(address indexed sender, uint amount0In, uint amount1In, uint amount0Out, uint amount1Out, address indexed to);
     event Sync(uint112 reserve0, uint112 reserve1);
+
+    function initialize(address _token0, address _token1) external {
+        require(msg.sender == factory, "Factory: FORBIDDEN"); // sufficient check
+        require(initialized == false, "Factory: ALREADY INITIALIZED");
+        initialized = true;
+        token0 = _token0;
+        token1 = _token1;
+    }
+
+    /**
+        * @dev getReserves is used to get the reserves of the pair.
+    */
+    function getReserves() public view returns (
+        uint112 _reserve0,
+        uint112 _reserve1,
+        uint32 _blockTimestampLast
+    ) {
+        _reserve0 = reserve0;
+        _reserve1 = reserve1;
+        _blockTimestampLast = blockTimestampLast;
+    }
 }
