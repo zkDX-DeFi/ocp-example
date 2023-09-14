@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "./MockPair2.sol";
 
-contract MockFactory {
+contract MockFactory is Ownable{
     mapping(address => mapping(address => address)) public getPair; // mapping from tokenA to tokenB to pair address
     address[] public allPairs; // array with all pairs
     address public feeTo;
@@ -46,5 +47,9 @@ contract MockFactory {
 
         allPairs.push(_pair);
         emit PairCreated(token0, token1, _pair, allPairs.length);
+    }
+
+    function setFeeTo(address _feeTo) external onlyOwner {
+        feeTo = _feeTo;
     }
 }
