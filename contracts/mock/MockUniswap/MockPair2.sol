@@ -59,4 +59,18 @@ contract MockPair2 is ERC20{
         _reserve1 = reserve1;
         _blockTimestampLast = blockTimestampLast;
     }
+
+    function _mintFee(uint112 _reserve0, uint112 _reserve1) private returns(bool _feeOn) {
+        address feeTo = MockFactory(factory).feeTo();
+        _feeOn = feeTo != address(0);
+
+        uint _kLast = kLast;
+        if (_feeOn) {
+
+        } else if (_kLast != 0) {
+            kLast = 0;
+        }
+    }
+
+    
 }
