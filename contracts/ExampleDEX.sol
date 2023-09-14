@@ -50,4 +50,40 @@ contract ExampleDEX {
             to,
             deadline);
     }
+
+    function removeLiquidity(
+        address tokenA,
+        address tokenB,
+        uint liquidity,
+        uint amountAMin,
+        uint amountBMin,
+        address to,
+        uint deadline
+    ) external {
+
+        router.omniRedeem(
+            remoteChainId,
+            tokenA,
+            liquidity,
+            address(this),
+            abi.encodeWithSelector(this.removeLiquidity.selector, tokenA, liquidity)
+        );
+
+        router.omniRedeem(
+            remoteChainId,
+            tokenB,
+            liquidity,
+            address(this),
+            abi.encodeWithSelector(this.removeLiquidity.selector, tokenB, liquidity)
+        );
+
+        uniswapRouter.removeLiquidity(
+            tokenA,
+            tokenB,
+            liquidity,
+            amountAMin,
+            amountBMin,
+            address(this),
+            deadline);
+    }
 }
