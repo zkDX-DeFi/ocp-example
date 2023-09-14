@@ -64,17 +64,14 @@ contract MockPair is ERC20{
     }
 
     function _update(uint _balance0, uint _balance1, uint112 _reserve0, uint112 _reserve1) private {
-        // todo: add code
     }
 
     function _mintFee(uint112 _reserve0, uint112 _reserve1) private returns(bool feeOn) {
-        // todo: add code
         feeOn = true;
     }
 
     // public functions
     function mint(address _to) external lock returns(uint _liquidity) {
-        // todo: add code
         (uint112 _reserve0, uint112 _reserve1, ) = getReserves();
         uint balance0 = IERC20(token0).balanceOf(address (this));
         uint balance1 = IERC20(token1).balanceOf(address (this));
