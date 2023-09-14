@@ -2,16 +2,30 @@
 pragma solidity ^0.8.13;
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/math/Math.sol";
 import "./MockFactory.sol";
 
+library UQ112x112 {
+    uint224 constant Q112 = 2**112;
+
+    // encode a uint112 as a UQ112x112
+    function encode(uint112 y) internal pure returns (uint224 z) {
+        z = uint224(y) * Q112; // never overflows
+    }
+
+    // divide a UQ112x112 by a uint112, returning a UQ112x112
+    function uqdiv(uint224 x, uint112 y) internal pure returns (uint224 z) {
+        z = x / uint224(y);
+    }
+}
+
+
 contract MockPair is ERC20 {
+    using UQ112x112 for uint224;
     address public immutable factory;
     address public token0;
     address public token1;
 
-    using SafeMath for uint;
     uint public constant MINIMUM_LIQUIDITY = 10**3;
 
     constructor () ERC20('Pair','Pair') public {
@@ -34,6 +48,18 @@ contract MockPair is ERC20 {
 
         unlocked = 1;
     }
+
+    event Mint(address indexed sender, uint amount0, uint amount1);
+    event Burn(address indexed sender, uint amount0, uint amount1, address indexed to);
+    event Swap(
+        address indexed sender,
+        uint amount0In,
+        uint amount1In,
+        uint amount0Out,
+        uint amount1Out,
+        address indexed to
+    );
+    event Sync(uint112 reserve0, uint112 reserve1);
 
     function initialize(address _token0, address _token1) external {
         require(msg.sender == factory, "Factory: FORBIDDEN");
@@ -78,6 +104,33 @@ contract MockPair is ERC20 {
 
         if (_totalSupply == 0) {
             _liquidity = Math.sqrt(amount0 * amount1) - MINIMUM_LIQUIDITY;
+            _mint(address(0), MINIMUM_LIQUIDITY);
+        } else {
+            _liquidity = Math.min(amount0 * _totalSupply / _reserve0, amount1 * _totalSupply / _reserve1);
         }
+        require( _liquidity > 0, 'INSUFFICIENT_LIQUIDITY_MINTED');
+        _mint(_to, _liquidity);
+
+        _update(balance0, balance1, _reserve0, _reserve1);
+        if (feeOn) kLast = uint(reserve0) * uint(reserve1);
+
+        emit Mint(msg.sender, amount0, amount1);
+    }
+
+    function _update(uint balance0, uint balance1, uint112 _reserve0, uint112 _reserve1) private {
+        require(balance0 <= type(uint112).max && balance1 <= type(uint112).max, "OVERFLOW");
+        uint32 blockTimestamp = uint32(block.timestamp % 2**32);
+
+        uint32 timeElapsed = blockTimestamp - blockTimestampLast;
+        if (timeElapsed > 0 && _reserve0 != 0 && _reserve1 != 0 ) {
+            price0CumulativeLast += uint(UQ112x112.encode(_reserve1).uqdiv(_reserve0)) * timeElapsed;
+            price1CumulativeLast += uint(UQ112x112.encode(_reserve0).uqdiv(_reserve1)) * timeElapsed;
+        }
+
+        reserve0 = uint112(balance0);
+        reserve1 = uint112(balance1);
+
+        blockTimestampLast = blockTimestamp;
+        emit Sync(reserve0, reserve1);
     }
 }
