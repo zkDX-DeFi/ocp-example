@@ -15,6 +15,7 @@ export async function deployFixture() {
         exampleStaking : await ethers.getContract("ExampleStaking"),
         exampleOUSD: await ethers.getContract("ExampleOUSD"),
         exampleDerivatives: await ethers.getContract("ExampleDerivatives"),
+        exampleDEX: await ethers.getContract("ExampleDEX"),
     }
 
     return {...users, ...contracts};
