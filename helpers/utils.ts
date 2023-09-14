@@ -16,6 +16,7 @@ export async function deployFixture() {
         exampleOUSD: await ethers.getContract("ExampleOUSD"),
         exampleDerivatives: await ethers.getContract("ExampleDerivatives"),
         exampleDEX: await ethers.getContract("ExampleDEX"),
+        mockFactory: await ethers.getContract("MockFactory"),
         mta: await ethers.getContract("MTA"),
         mtb: await ethers.getContract("MTB"),
     }

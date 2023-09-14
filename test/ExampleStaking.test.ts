@@ -15,10 +15,11 @@ describe("OCPFactory", async () => {
         exampleStaking: any,
         exampleOUSD: any,
         exampleDerivatives: any,
-        exampleDEX: any;
+        exampleDEX: any,
+        mockFactory: any;
 
     beforeEach(async () => {
-        ({owner, user1, exampleStaking, exampleOUSD, exampleDerivatives, exampleDEX,mta,mtb} = await deployFixture());
+        ({owner, user1, exampleStaking, exampleOUSD, exampleDerivatives, exampleDEX,mta,mtb, mockFactory} = await deployFixture());
         usdc = await deployNew("Token", ["USDC", 18, 0, 0, 0]);
     });
 
@@ -75,5 +76,17 @@ describe("OCPFactory", async () => {
 
         expect(await t.balanceOf(user1.address)).eq(parseEther("1000"));
         expect(await t2.balanceOf(user1.address)).eq(parseEther("1000"));
+    });
+
+    it("exampleFactory", async () => {
+        const f = mockFactory;
+        const t0 = mta;
+        const t1 = mtb;
+        expect(await f.feeTo()).eq(AddressZero);
+        expect(await f.allPairsLength()).eq(0);
+        await f.setFeeTo(user1.address);
+        expect(await f.feeTo()).eq(user1.address);
+
+        await f.createPair(t0.address,t1.address);
     });
 });

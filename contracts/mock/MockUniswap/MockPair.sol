@@ -9,8 +9,8 @@ contract MockPair is ERC20{
     address public token0;
     address public token1;
 
-    constructor (address _factory) ERC20("MockPair", "MP"){
-        factory = _factory;
+    constructor () ERC20("MockPair", "MP"){
+        factory = msg.sender;
     }
 
 
