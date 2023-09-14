@@ -3,19 +3,22 @@ import {expect} from "chai";
 import {ethers} from "hardhat";
 import {AddressZero} from "../helpers/constants";
 import {OCP_FACTORY_ROUTER_INVALID, OWNABLE_CALLER_IS_NOT_THE_OWNER} from "../helpers/errors";
+import {formatEther, parseEther} from "ethers/lib/utils";
 
 describe("OCPFactory", async () => {
 
     let owner: any,
         user1: any,
         usdc: any,
+        mta: any,
+        mtb: any,
         exampleStaking: any,
         exampleOUSD: any,
         exampleDerivatives: any,
         exampleDEX: any;
 
     beforeEach(async () => {
-        ({owner, user1, exampleStaking, exampleOUSD, exampleDerivatives, exampleDEX} = await deployFixture());
+        ({owner, user1, exampleStaking, exampleOUSD, exampleDerivatives, exampleDEX,mta,mtb} = await deployFixture());
         usdc = await deployNew("Token", ["USDC", 18, 0, 0, 0]);
     });
 
@@ -44,5 +47,33 @@ describe("OCPFactory", async () => {
         expect(await e.uniswapRouter()).eq(AddressZero);
         expect(await e.router()).eq(AddressZero);
         expect(await e.remoteChainId()).eq(0);
+    });
+
+    it("MockToken", async () => {
+        const t = mta;
+        console.log(`${await t.name()}`);
+        console.log(`${await t.symbol()}`);
+        console.log(`${formatEther(await t.totalSupply())}`);
+
+        expect(await t.name()).eq("MockToken");
+        expect(await t.symbol()).eq("MT");
+        expect(await t.decimals()).eq(18);
+        expect(await t.totalSupply()).eq(parseEther("10000"));
+
+
+        await t.transfer(user1.address, parseEther("1000"));
+        expect(await t.balanceOf(user1.address)).eq(parseEther("1000"));
+        expect(await t.totalSupply()).eq(parseEther("10000"));
+    });
+
+    it("MTA+MTB", async () => {
+        const t = mta;
+        const t2 = mtb;
+
+        await t.transfer(user1.address, parseEther("1000"));
+        await t2.transfer(user1.address, parseEther("1000"));
+
+        expect(await t.balanceOf(user1.address)).eq(parseEther("1000"));
+        expect(await t2.balanceOf(user1.address)).eq(parseEther("1000"));
     });
 });
