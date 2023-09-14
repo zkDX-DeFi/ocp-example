@@ -4,6 +4,7 @@ pragma solidity ^0.8.13;
 contract MockFactory {
     mapping(address => mapping(address => address)) public getPair; // mapping from tokenA to tokenB to pair address
     address[] public allPairs; // array with all pairs
+    address public feeTo;
 
     event PairCreated(address indexed token0, address indexed token1, address pair, uint);
 
