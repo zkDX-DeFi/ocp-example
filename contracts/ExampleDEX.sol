@@ -51,7 +51,7 @@ contract ExampleDEX {
             deadline);
     }
 
-    function removeLiquidity(
+    function omniRemoveLiquidity(
         address tokenA,
         address tokenB,
         uint liquidity,
@@ -66,7 +66,7 @@ contract ExampleDEX {
             tokenA,
             liquidity,
             address(this),
-            abi.encodeWithSelector(this.removeLiquidity.selector, tokenA, liquidity)
+            abi.encodeWithSelector(this.omniRemoveLiquidity.selector, tokenA, liquidity)
         );
 
         router.omniRedeem(
@@ -74,7 +74,7 @@ contract ExampleDEX {
             tokenB,
             liquidity,
             address(this),
-            abi.encodeWithSelector(this.removeLiquidity.selector, tokenB, liquidity)
+            abi.encodeWithSelector(this.omniRemoveLiquidity.selector, tokenB, liquidity)
         );
 
         uniswapRouter.removeLiquidity(
