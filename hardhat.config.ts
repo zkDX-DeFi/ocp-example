@@ -52,7 +52,7 @@ const config: HardhatUserConfig = {
     },
     docgen: {
         pages: 'files',
-        exclude: ['mock'],
+        exclude: [],
         templates: 'docgen'
     }
 }
