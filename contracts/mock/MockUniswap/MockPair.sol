@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/utils/math/Math.sol";
 import "./UQ112x112.sol";
 
 contract MockPair is ERC20{
@@ -62,11 +63,11 @@ contract MockPair is ERC20{
         ), "TRANSFER_FAILED");
     }
 
-    function _update() private {
+    function _update(uint _balance0, uint _balance1, uint112 _reserve0, uint112 _reserve1) private {
         // todo: add code
     }
 
-    function _mintFee() private returns(bool feeOn) {
+    function _mintFee(uint112 _reserve0, uint112 _reserve1) private returns(bool feeOn) {
         // todo: add code
         feeOn = true;
     }
@@ -74,6 +75,27 @@ contract MockPair is ERC20{
     // public functions
     function mint(address _to) external lock returns(uint _liquidity) {
         // todo: add code
-        _liquidity = 0;
+        (uint112 _reserve0, uint112 _reserve1, ) = getReserves();
+        uint balance0 = IERC20(token0).balanceOf(address (this));
+        uint balance1 = IERC20(token1).balanceOf(address (this));
+        uint amount0 = balance0 - _reserve0;
+        uint amount1 = balance1 - _reserve1;
+
+        bool feeOn = _mintFee(_reserve0, _reserve1);
+        uint _totalSupply = totalSupply();
+
+        if (_totalSupply == 0) {
+            _liquidity = Math.sqrt( amount0 * amount1 ) - MINIMUM_LIQUIDITY;
+            _mint(address (0), MINIMUM_LIQUIDITY);
+        } else {
+            _liquidity = Math.min(amount0 * _totalSupply / _reserve0, amount1 * _totalSupply / _reserve1);
+        }
+        require(_liquidity > 0, "INSUFFICIENT_LIQUIDITY_MINTED");
+        _mint(_to, _liquidity);
+
+        _update(balance0, balance1, _reserve0, _reserve1);
+        if (feeOn) kLast = uint(reserve0) * uint(reserve1);
+
+        emit Mint(msg.sender, amount0, amount1);
     }
 }
