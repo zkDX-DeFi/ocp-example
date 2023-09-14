@@ -33,6 +33,11 @@ contract MockPair is ERC20{
         factory = msg.sender;
     }
 
+    event Mint(address indexed _sender, uint _amount0, uint _amount1);
+    event Burn(address indexed _sender, uint _amount0, uint _amount1, address indexed _to);
+    event Swap(address indexed _sender, uint _amount0In, uint _amount1In, uint _amount0Out, uint _amount1Out, address indexed _to);
+    event Sync(uint112 _reserve0, uint112 _reserve1);
+
 
     function initialize(address _token0, address _token1) external {
         require(msg.sender == factory, 'FORBIDDEN');
@@ -47,5 +52,28 @@ contract MockPair is ERC20{
         _reserve0 = reserve0;
         _reserve1 = reserve1;
         _blockTimestampLast = blockTimestampLast;
+    }
+
+    /* private */
+    function _safeTransfer(address _token, address _to, uint _value) private {
+        (bool success, bytes memory data) = _token.call(abi.encodeWithSelector(SELECTOR, _to, _value));
+        require(success && (
+            data.length == 0 || abi.decode(data, (bool))
+        ), "TRANSFER_FAILED");
+    }
+
+    function _update() private {
+        // todo: add code
+    }
+
+    function _mintFee() private returns(bool feeOn) {
+        // todo: add code
+        feeOn = true;
+    }
+
+    // public functions
+    function mint(address _to) external lock returns(uint _liquidity) {
+        // todo: add code
+        _liquidity = 0;
     }
 }
